@@ -48,6 +48,7 @@ const AddCarForm = () => {
                         "Content-Type": "multipart/form-data",
                         "auth-token": token,
                     },
+                    withCredentials: true,
                 }
             );
             console.log(response.data);
