@@ -21,7 +21,7 @@ const CarList = () => {
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
-                    withCredentials: true,
+                    credentials: "include",
                 });
                 setCars(response.data.cars);
             } catch (error) {
@@ -49,7 +49,7 @@ const CarList = () => {
                 `https://car-management-system-spyne-backend.vercel.app/searchCars?query=${searchQuery}`,
                 {
                     headers: {"auth-token": token},
-                    withCredentials: true,
+                    credentials: "include",
                 }
             );
             setSearchResults(response.data.cars);

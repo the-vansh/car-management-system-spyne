@@ -25,7 +25,7 @@ const CarList = () => {
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
-                    withCredentials: true,
+                    credentials: "include",
                 });
                 setCars(response.data.cars);
             } catch (error) {
@@ -89,7 +89,7 @@ const CarList = () => {
                         "Content-Type": "multipart/form-data",
                         "auth-token": token,
                     },
-                    withCredentials: true,
+                    credentials: "include",
                 }
             );
 
@@ -143,7 +143,7 @@ const CarList = () => {
                 },
                 {
                     headers: {"auth-token": token},
-                    withCredentials: true,
+                    credentials: "include",
                 }
             );
 
@@ -172,7 +172,7 @@ const CarList = () => {
                 `https://car-management-system-spyne-backend.vercel.app/deleteCar/${carId}`,
                 {
                     headers: {"auth-token": token},
-                    withCredentials: true,
+                    credentials: "include",
                 }
             );
 
