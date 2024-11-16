@@ -49,6 +49,7 @@ const AddCarForm = () => {
                         "auth-token": token,
                     },
                     credentials: "include",
+                    withCredentials: true,
                 }
             );
             console.log(response.data);

@@ -90,6 +90,7 @@ const CarList = () => {
                         "auth-token": token,
                     },
                     credentials: "include",
+                    withCredentials: true,
                 }
             );
 
@@ -144,6 +145,7 @@ const CarList = () => {
                 {
                     headers: {"auth-token": token},
                     credentials: "include",
+                    withCredentials: true,
                 }
             );
 
@@ -173,6 +175,7 @@ const CarList = () => {
                 {
                     headers: {"auth-token": token},
                     credentials: "include",
+                    withCredentials: true,
                 }
             );
 
