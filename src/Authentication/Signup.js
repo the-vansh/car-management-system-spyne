@@ -18,6 +18,7 @@ export default function Signup() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({username, email, password}),
+            credentials: "include", // Ensure credentials are sent with the request
         });
         const json = await response.json();
         console.log(json);
