@@ -25,19 +25,16 @@ const CarList = () => {
             }
             const a = error;
             console.log(a);
-            setLoading(true);
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
                     credentials: "include",
                 });
-                setLoading(false);
+               
                 setCars(response.data.cars);
             } catch (error) {
-                setLoading(false);
+               
                 console.error(error.response.data);
-            }finally{
-                setLoading(false);
             }
         };
 
