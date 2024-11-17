@@ -17,7 +17,7 @@ const CarList = () => {
 
     useEffect(() => {
         const fetchCars = async () => {
-            setLoading(true);
+            
             const token = localStorage.getItem("token");
             if (!token) {
                 alert("Authentication token is missing.");
@@ -25,13 +25,16 @@ const CarList = () => {
             }
             const a = error;
             console.log(a);
+            setLoading(true);
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
                     credentials: "include",
                 });
+                setLoading(false);
                 setCars(response.data.cars);
             } catch (error) {
+                setLoading(false);
                 console.error(error.response.data);
             }finally{
                 setLoading(false);
@@ -74,11 +77,13 @@ const CarList = () => {
             setError("Authentication token is missing.");
             return;
         }
-
+ 
         if (images.length === 0) {
             setError("Please select at least one image to upload.");
             return;
-        }
+        } 
+
+        setLoading(true);
 
         const formData = new FormData();
         for (let i = 0; i < images.length; i++) {
@@ -104,10 +109,12 @@ const CarList = () => {
             const updatedCars = cars.map((car) =>
                 car._id === carID ? {...car, images: response.data.updatedCar.images} : car
             );
+            setLoading(false);
             setCars(updatedCars);
 
             handlecloseimagepanel();
         } catch (error) {
+            setLoading(false);
             console.error(error);
             setError(error.response?.data?.error || "An error occurred while uploading images.");
         }
@@ -137,6 +144,7 @@ const CarList = () => {
             alert("Authentication token is missing.");
             return;
         }
+        setLoading(true);
         const carId = carSID.updat;
         console.log(carId);
         try {
@@ -153,7 +161,7 @@ const CarList = () => {
                     withCredentials: true,
                 }
             );
-
+            setLoading(false);
             alert(response.data.message);
             // Update the state with the new car details (optional)
             const updatedCars = cars.map((car) => (car._id === carId ? {...car, ...editCar} : car));
@@ -161,6 +169,7 @@ const CarList = () => {
 
             handleCloseEditModal(); // Close the modal after update
         } catch (error) {
+            setLoading(false);
             console.error(error);
             alert(error.response?.data?.error || "An error occurred while updating the car.");
         }
@@ -173,7 +182,7 @@ const CarList = () => {
             alert("Authentication token is missing.");
             return;
         }
-
+        setLoading(true);
         try {
             const response = await axios.delete(
                 `https://car-management-system-spyne-backend.vercel.app/deleteCar/${carId}`,
@@ -183,11 +192,12 @@ const CarList = () => {
                     withCredentials: true,
                 }
             );
-
+            setLoading(false);
             setCars(cars.filter((car) => car._id !== carId));
 
             alert(response.data.message); // Show success message
         } catch (error) {
+            setLoading(false);
             console.error(error.response.data);
             alert(error.response.data.error || "An error occurred while deleting the car.");
         }
@@ -209,7 +219,7 @@ const CarList = () => {
 
     return (
         <>
-         {loading && <p style={{textAlign:"center"}}>Loading Your Car Please Wait...</p>} 
+         {loading && <p style={{textAlign:"center"}}>Please Wait...</p>} 
         <div>
             <h1 style={{textAlign: "center", color: "black"}}>Your Cars</h1>
             {cars.map((car) => (
