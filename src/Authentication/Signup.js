@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 export default function Signup() {
     const [credentials, setcredentails] = useState({username: "", email: " ", password: ""});
     let navigate = useNavigate();
+    const [loading, setLoading] = useState(false); 
     const Submit = async (e) => {
         e.preventDefault();
         const {username, email, password} = credentials;
@@ -12,6 +13,7 @@ export default function Signup() {
         // console.log(username);
         // console.log(email);
         // console.log(password);
+        setLoading(true);
         const response = await fetch("https://car-management-system-spyne-backend.vercel.app/signup", {
             method: "POST",
             headers: {
@@ -22,9 +24,10 @@ export default function Signup() {
         });
         const json = await response.json();
         console.log(json);
+        setLoading(false);
         //save the authtoken and redirect
         if (json.success) {
-            alert("Account created successfully", "success");
+            alert("Account created successfully & please Login", "success");
             navigate("/");
         } else {
             alert("Invalid credentials", "danger");
@@ -38,6 +41,7 @@ export default function Signup() {
 
     return (
         <>
+           {loading && <p style={{textAlign:"center"}}>Please wait...</p>} 
             <div className="one">
                 <section className="sectioning">
                     <span></span>

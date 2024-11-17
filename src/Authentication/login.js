@@ -30,7 +30,7 @@ export default function Login() {
             localStorage.setItem("token", json.authtoken);
             console.log("Token stored:", json.authtoken);
 
-            alert("Logged in successfully");
+            //alert("Logged in successfully");
             navigate("/showcars");
         } else {
             alert("Invalid Credentails");
