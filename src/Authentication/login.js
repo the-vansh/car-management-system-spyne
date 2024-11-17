@@ -43,23 +43,7 @@ export default function Login() {
     };
     return (
         <>
-        {loading && (
-            <p style={{
-                position: 'fixed', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)', 
-                fontSize: '20px', 
-                fontWeight: 'bold', 
-                color: '#fff', 
-                backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-                padding: '10px 20px', 
-                borderRadius: '5px', 
-                zIndex: 1000
-            }}>
-                Please wait...
-            </p>
-        )}
+        {loading && <p style={{textAlign:"center"}}>Please wait...</p>} 
             <div className="one">
                 <section className="sectioning">
                     <span></span>
