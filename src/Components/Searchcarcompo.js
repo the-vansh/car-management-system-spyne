@@ -8,6 +8,7 @@ const CarList = () => {
     const [selectedCar, setSelectedCar] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [loading, setLoading] = useState(false); 
 
     // Fetch all cars initially
     useEffect(() => {
@@ -44,6 +45,7 @@ const CarList = () => {
             alert("Authentication token is missing.");
             return;
         }
+        setLoading(true);
 
         try {
             const response = await axios.get(
@@ -58,6 +60,8 @@ const CarList = () => {
         } catch (error) {
             console.error(error.response.data);
             alert("Failed to search cars.");
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -81,6 +85,8 @@ const CarList = () => {
     };
 
     return (
+        <>
+         {loading && <p style={{textAlign:"center"}}>Searching Car Please Wait...</p>}
         <div>
             <h1
                 style={{
@@ -243,6 +249,8 @@ const CarList = () => {
                 </div>
             )}
         </div>
+
+        </>
     );
 };
 

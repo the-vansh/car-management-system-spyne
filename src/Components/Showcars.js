@@ -13,8 +13,11 @@ const CarList = () => {
     const fileInputRef = useRef(null);
     const [error, setError] = useState("");
 
+    const [loading, setLoading] = useState(false); 
+
     useEffect(() => {
         const fetchCars = async () => {
+            setLoading(true);
             const token = localStorage.getItem("token");
             if (!token) {
                 alert("Authentication token is missing.");
@@ -30,6 +33,8 @@ const CarList = () => {
                 setCars(response.data.cars);
             } catch (error) {
                 console.error(error.response.data);
+            }finally{
+                setLoading(false);
             }
         };
 
@@ -203,6 +208,8 @@ const CarList = () => {
     };
 
     return (
+        <>
+         {loading && <p style={{textAlign:"center"}}>Loading Your Car Please Wait...</p>} 
         <div>
             <h1 style={{textAlign: "center", color: "black"}}>Your Cars</h1>
             {cars.map((car) => (
@@ -502,6 +509,7 @@ const CarList = () => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 

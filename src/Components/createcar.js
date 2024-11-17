@@ -7,6 +7,7 @@ const AddCarForm = () => {
     const [tags, setTags] = useState("");
     const [images, setImages] = useState([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false); 
     const fileInputRef = useRef(null); // Ref for file input
 
     const handleImageChange = (event) => {
@@ -20,8 +21,9 @@ const AddCarForm = () => {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
 
+        event.preventDefault();
+         setLoading(true);
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
@@ -68,6 +70,8 @@ const AddCarForm = () => {
         } catch (error) {
             console.error(error.response?.data || error.message);
             setError(error.response?.data?.error || "An error occurred while adding the car.");
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -137,6 +141,8 @@ const AddCarForm = () => {
     };
 
     return (
+        <>
+        {loading && <p style={{textAlign:"center"}}>Adding Car Please Wait...</p>} 
         <div style={styles.container}>
             <h2 style={styles.heading}>Add Car</h2>
             <form onSubmit={handleSubmit}>
@@ -191,6 +197,7 @@ const AddCarForm = () => {
                 </button>
             </form>
         </div>
+        </>
     );
 };
 
