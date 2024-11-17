@@ -2,11 +2,14 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./login.css";
 import {Link} from "react-router-dom";
+
 export default function Login() {
     const [credentials, setcredentails] = useState({email: " ", password: ""});
+    const [loading, setLoading] = useState(false); 
     let navigate = useNavigate();
     const submit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const {email, password} = credentials;
         const response = await fetch("https://car-management-system-spyne-backend.vercel.app/login", {
             method: "POST",
@@ -18,6 +21,8 @@ export default function Login() {
         });
         const json = await response.json();
         console.log(json);
+
+        setLoading(false);
 
         if (json.success) {
             //save the authtoken and redirect
@@ -38,6 +43,7 @@ export default function Login() {
     };
     return (
         <>
+        {loading && <p>Please wait...</p>} 
             <div className="one">
                 <section className="sectioning">
                     <span></span>
