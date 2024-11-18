@@ -14,7 +14,7 @@ const CarList = () => {
     const [error, setError] = useState("");
 
     const [loading, setLoading] = useState(false); 
-
+    const [loadingimage,setloadingimage] = useState(false);
     useEffect(() => {
         const fetchCars = async () => {
             
@@ -25,7 +25,7 @@ const CarList = () => {
             }
             const a = error;
             console.log(a);
-            setLoading(true);
+            setloadingimage(true);
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
@@ -38,8 +38,7 @@ const CarList = () => {
                 console.error(error.response.data);
             }
             finally {
-                // Set loading to false when request is done
-                setLoading(false);
+                setloadingimage(false);
             }
         };
 
@@ -222,6 +221,7 @@ const CarList = () => {
     return (
         <>
          {loading && <p style={{textAlign:"center"}}>Please Wait...</p>} 
+         {loadingimage && <p style={{textAlign:"center"}}>Loading May Take Time...</p>} 
         <div>
             <h1 style={{textAlign: "center", color: "black"}}>Your Cars</h1>
             {cars.map((car) => (
