@@ -13,14 +13,9 @@ const CarList = () => {
     const fileInputRef = useRef(null);
     const [error, setError] = useState("");
 
-    const [initialLoad, setInitialLoad] = useState(true);
     const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
-
-        if (!initialLoad || cars.length > 0) {
-            return;
-          }
         const fetchCars = async () => {
             
             const token = localStorage.getItem("token");
@@ -45,12 +40,11 @@ const CarList = () => {
             finally {
                 // Set loading to false when request is done
                 setLoading(false);
-                setInitialLoad(false);  // Mark the initial load as complete
             }
         };
 
         fetchCars();
-    }, [cars,initialLoad]);
+    }, [cars]);
 
     const handleShowMore = (car) => {
         setShowMoreCar(car);
