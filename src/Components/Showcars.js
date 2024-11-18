@@ -13,9 +13,14 @@ const CarList = () => {
     const fileInputRef = useRef(null);
     const [error, setError] = useState("");
 
+    const [initialLoad, setInitialLoad] = useState(true);
     const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
+
+        if (!initialLoad || cars.length > 0) {
+            return;
+          }
         const fetchCars = async () => {
             
             const token = localStorage.getItem("token");
@@ -25,6 +30,7 @@ const CarList = () => {
             }
             const a = error;
             console.log(a);
+            setLoading(true);
             try {
                 const response = await axios.get("https://car-management-system-spyne-backend.vercel.app/userCars", {
                     headers: {"auth-token": token},
@@ -36,10 +42,15 @@ const CarList = () => {
                
                 console.error(error.response.data);
             }
+            finally {
+                // Set loading to false when request is done
+                setLoading(false);
+                setInitialLoad(false);  // Mark the initial load as complete
+            }
         };
 
         fetchCars();
-    }, [cars]);
+    }, [cars,initialLoad]);
 
     const handleShowMore = (car) => {
         setShowMoreCar(car);
